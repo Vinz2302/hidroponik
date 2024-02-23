@@ -22,21 +22,29 @@ class RequestHandler(BaseHTTPRequestHandler):
         self._set_headers()
 
     def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
-        data = json.loads(post_data.decode('utf-8'))
+        if self.path == '/image':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            data = json.loads(post_data.decode('utf-8'))
 
-        if 'file_path' not in data:
-            self._set_headers(400)
-            self.wfile.write(json.dumps({'error': 'File path not provided'}).encode('utf-8'))
-            return
+            if 'file_path' not in data:
+                self._set_headers(400)
+                self.wfile.write(json.dumps({'error': 'File path not provided'}).encode('utf-8'))
+                return
+            
+            file_path = data['file_path']
+            download_url = generate_download_url(file_path)
+
+            self._set_headers()
+            response = {'download_url': download_url}
+            self.wfile.write(json.dumps(response).encode('utf-8'))
+        else:
+            self.send_response(404)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            response = {'error': 'Endpoint not found'}
+            self.wfile.write(json.dumps(response).encode('utf-8'))
         
-        file_path = data['file_path']
-        download_url = generate_download_url(file_path)
-
-        self._set_headers()
-        response = {'download_url': download_url}
-        self.wfile.write(json.dumps(response).encode('utf-8'))
 
 def signal_handler(sig, frame):
     print('Exiting...')

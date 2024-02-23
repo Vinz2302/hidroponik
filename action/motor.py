@@ -1,8 +1,18 @@
 import serial
 import time
+import sys
 
+try:
+    port = 'COM5'
+    arduino = serial.Serial(port=port, timeout=0)
+    print(f'Serial port connected on {port}')
+except serial.SerialException as e:
+    print(f"Failed to open serial port: {e}")
+    sys.exit(1)
+except Exception as e:
+    print(f"An error occurred: {e}")
+    sys.exit(1)
 
-arduino = serial.Serial(port = 'COM5', timeout=0)
 arduino.baudrate = 115200
 arduino.write("\r\n\r\n".encode())
 time.sleep(2)
