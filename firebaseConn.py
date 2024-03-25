@@ -1,4 +1,5 @@
 import firebase_admin 
+import os
 from firebase_admin import credentials
 from firebase_admin import firestore
 from firebase_admin import storage
@@ -21,9 +22,12 @@ def generate_download_url(file_path):
 
 def upload_image(image_path, destination_path):
     try:
+        if not os.path.isfile(image_path):
+            raise Exception(f"File not found: {image_path}")
+
         bucket = storage.bucket()
         blob = bucket.blob(destination_path)
-
+        
         # Upload the local file to the storage path
         blob.upload_from_filename(image_path)
         print(f"Image uploaded to {destination_path}")

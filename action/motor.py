@@ -3,7 +3,7 @@ import time
 import sys
 
 try:
-    port = 'COM5'
+    port = 'COM7'
     arduino = serial.Serial(port=port, timeout=0)
     print(f'Serial port connected on {port}')
 except serial.SerialException as e:
