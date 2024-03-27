@@ -38,24 +38,25 @@ def segment1():
     arduino.write(str.encode('$X' + '\n'))
     time.sleep(2)
 
-    arduino.write(str.encode('$J=G21G91X-5.000Y-32.500F100000' + '\n'))
+    arduino.write(str.encode('$J=G21G91X-50.000Y-22.500Z-50.000F100000' + '\n'))
     print('motor segment 1')          #segment 1
-    time.sleep(6)
+    time.sleep(10)
 
 def pos1():
     arduino.write(str.encode('$X' + '\n'))
     time.sleep(2)
 
-    arduino.write(str.encode('$J=G21G91X-9.000Y7.500F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91Z-20.000F100000'  + '\n'))
+    print('jalan ke lubang 1')
+    time.sleep(8)
 
-    arduino.write(str.encode('$J=G21G91Z+10F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91X-5.000Y-12.500F100000'  + '\n'))
+    time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91Z-10F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91Z20.000F100000'  + '\n'))
+    time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91X-70.000Y20.000F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-5.000F100000'  + '\n'))
     time.sleep(8)
 
 
@@ -63,48 +64,51 @@ def pos2():
     arduino.write(str.encode('$X' + '\n'))
     time.sleep(2)
 
-    arduino.write(str.encode('$J=G21G91X9.000Y7.500F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91Z-20.000F100000'  + '\n'))
+    print('jalan ke lubang 2')
+    time.sleep(8)
 
-    arduino.write(str.encode('$J=G21G91Z+10F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91X-10.000Y-12.500F100000'  + '\n'))
+    time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91Z-10F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91Z20.000F100000'  + '\n'))
+    time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91X-79.000Y20.000F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-5.000F100000'  + '\n'))
     time.sleep(8)
 
 def pos3():
     arduino.write(str.encode('$X' + '\n'))
     time.sleep(2)
 
-    arduino.write(str.encode('$J=G21G91X-9.000Y-7.500F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91Z-20.000F100000'  + '\n'))
+    print('jalan ke lubang 3')
+    time.sleep(8)
 
-    arduino.write(str.encode('$J=G21G91Z+10F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91X-5.000Y-30.000F100000'  + '\n'))
+    time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91Z-10F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91Z20.000F100000'  + '\n'))
+    time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91X-70.000Y35.000F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-5.000F100000'  + '\n'))
     time.sleep(8)
 
 def pos4():
     arduino.write(str.encode('$X' + '\n'))
     time.sleep(2)
 
-    arduino.write(str.encode('$J=G21G91X9.000Y-7.500F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91Z-20.000F100000'  + '\n'))
+    print('jalan ke lubang 4')
+    time.sleep(8)
 
-    arduino.write(str.encode('$J=G21G91Z+10F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91X-10.000Y-30.000F100000'  + '\n'))
+    time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91Z-10F100000'  + '\n'))
-    time.sleep(3)
+    arduino.write(str.encode('$J=G21G91Z20.000F100000'  + '\n'))
+    time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91X-79.000Y35.000F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-5.000F100000'  + '\n'))
     time.sleep(8)
 
 arduino.write(str.encode('$X' + '\n'))
