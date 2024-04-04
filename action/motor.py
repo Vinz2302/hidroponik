@@ -27,7 +27,7 @@ def home():
 
     arduino.write(str.encode('$H' + '\n'))   
     print('homing')                       #homing
-    time.sleep(20)
+    time.sleep(30)
 
     arduino.write(str.encode('$21=0' + '\n'))
     print('limit switch off')
@@ -68,7 +68,7 @@ def pos2():
     print('jalan ke lubang 2')
     time.sleep(8)
 
-    arduino.write(str.encode('$J=G21G91X-10.000Y-12.500F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-27.000Y-12.500F100000'  + '\n'))
     time.sleep(5)
 
     arduino.write(str.encode('$J=G21G91Z20.000F100000'  + '\n'))
@@ -102,7 +102,7 @@ def pos4():
     print('jalan ke lubang 4')
     time.sleep(8)
 
-    arduino.write(str.encode('$J=G21G91X-10.000Y-30.000F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-27.000Y-30.000F100000'  + '\n'))
     time.sleep(5)
 
     arduino.write(str.encode('$J=G21G91Z20.000F100000'  + '\n'))
@@ -110,5 +110,12 @@ def pos4():
 
     arduino.write(str.encode('$J=G21G91X-5.000F100000'  + '\n'))
     time.sleep(8)
+
+def naik():
+    arduino.write(str.encode('$X' + '\n'))
+    time.sleep(2)
+
+    arduino.write(str.encode('$J=G21G91Z-20.000F100000'  + '\n'))
+    time.sleep(4)
 
 arduino.write(str.encode('$X' + '\n'))
