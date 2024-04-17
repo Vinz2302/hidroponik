@@ -14,7 +14,7 @@ def arduino_control():
     import serial
 
     home()
-    segment1()                                              
+    segment1()
 
     if os.path.isfile('record.csv'):                                #Mengecek apakah file record sudah ada
         record=pd.read_csv('record.csv',index_col=[0])              #jika sudah ada file akan dibaca sebagai dataframe
@@ -24,8 +24,23 @@ def arduino_control():
     if not os.path.isdir('image'):                                  #mengecek apakah folder hasil sudah ada
         os.mkdir('image')                                           #jika belum ada maka akan dibuat, folder ini untuk simpan hasil gambar program
     
-    cap=cv2.VideoCapture(0, cv2.CAP_DSHOW)        #menyalakan kamera
-    ret,frame=cap.read()            #membaca gambar dari kamera, gambar yang dibaca formatnya BGR
+    cap=cv2.VideoCapture(1, cv2.CAP_DSHOW)        #menyalakan kamera
+
+    timeout = 1
+    timeout_start = time.time()
+
+    while True:
+        ret, frame = cap.read()
+        cv2.imshow('window', frame)
+
+        if time.time() > timeout_start + timeout:
+            break
+
+        if cv2.waitKey(1) != -1:
+            pass
+
+    cv2.imwrite("haha.jpg", frame)
+    # ret,frame=cap.read()            #membaca gambar dari kamera, gambar yang dibaca formatnya BGR
     cap.release()                   #melepaskan kamera
 
     #Baca Gambar
