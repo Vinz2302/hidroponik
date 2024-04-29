@@ -41,9 +41,9 @@ cap.release()
 image=frame
 lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)            #mengubah dari format BGR menjadi CIELAB
 (thresh, BnW_image)= cv2.threshold(lab[:,:,1], 119, 255, cv2.THRESH_BINARY) #Melakukan intensity transformation agar gambar jadi biner
-    # plt.imsave('Hasil/'+'lab'+'.jpg',lab)                                     #Threshold bisa disesuaikan bisa juga pakai THRESH_OTSU biar otomatis
-    # plt.imsave('Hasil/'+'laba'+'.jpg',lab[:,:,1])
-    # plt.imsave('Hasil/'+'bnw'+'.jpg',BnW_image)
+plt.imsave('image/'+'lab'+'.jpg',lab)                                     #Threshold bisa disesuaikan bisa juga pakai THRESH_OTSU biar otomatis
+plt.imsave('image/'+'laba'+'.jpg',lab[:,:,1])
+plt.imsave('image/'+'bnw'+'.jpg',BnW_image)
 
 save={}         #dictionary untuk simpan hasil
 big=[]          #list untuk simpan selada kategori besar, sedang, dan kecil untuk nanti ubah warna seladanya
@@ -58,7 +58,7 @@ height = int(image.shape[0] / numrows)      #untuk membagi gambar jadi 4 bidang
 width = int(image.shape[1] / numcols)
 imcop=image.copy()
 imcop=cv2.cvtColor(imcop,cv2.COLOR_BGR2RGB) #untuk ubah color space BGR jadi RGB
-# plt.imsave('Hasil/'+'awal'+'.jpg',imcop)
+plt.imsave('image/'+'awal'+'.jpg',imcop)
 
 for row in range(numrows):
     for col in range(numcols):
@@ -68,8 +68,8 @@ for row in range(numrows):
         x1 = x0 + width
         individual =  (BnW_image[y0:y1, x0:x1])     #untuk ambil gambar biner dari bidang yang mau diolah
         individual = cv2.copyMakeBorder(individual,2,2,2,2,cv2.BORDER_CONSTANT, value = 255)    #untuk buat padding supaya find contour bisa jalan
-        # strar=str(area)
-        # plt.imsave('Hasil/'+strar+'.jpg',individual)
+        strar=str(area)
+        plt.imsave('image/'+strar+'.jpg',individual)
         contours, hierarchy=cv2.findContours(individual,cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)   #mencari kontur dari selada
         
         for j in range(len(hierarchy[0])):   #hasil dari hierarchy ini bisa beda-beda tergantung dari jenis RETR yang digunakan
@@ -81,14 +81,14 @@ for row in range(numrows):
                     if area in save:        #jika pada bidang 1 sudah ada kontur yang terdeteksi dan terdeteksi ada kontur lain, maka akan dibandingkan
                         if individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.00276>save[area]['size']:    #kontur yang paling besar yang akan disimpan
                             save[area]={}
-                            save[area]['size']=individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.00276   #*0.00276 adalah koefisien pengali
+                            save[area]['size']=individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.0046   #*0.00276 adalah koefisien pengali
                             save[area]['x']=x+x0-1                                                                  #didapatkan dari kalibrasi 
                             save[area]['y']=y+y0-1
                             save[area]['w']=w
                             save[area]['h']=h
                     else:
                         save[area]={}
-                        save[area]['size']=individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.00276       #jika belum ada kontur terdeteksi 
+                        save[area]['size']=individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.0046       #jika belum ada kontur terdeteksi 
                         save[area]['x']=x+x0-1                                                                      #maka akan langsung disimpan
                         save[area]['y']=y+y0-1
                         save[area]['w']=w
@@ -151,5 +151,32 @@ print(outcode)
 print(save)
 print(record)
 outcode.sort()             #outcode di sort supaya lengan robot mengambil sesuai urutan yang di mau
+
+# estimasi ={}
+# (record/2000)*100 == estimasi #pixelnya nanti diganti 
+
+# if 0 < estimasi <= 10:
+#     print('estimasi panen 30 hari') 
+# elif 10 < estimasi <= 20:
+#     print('estimasi panen 27 hari') 
+# elif 20 < estimasi <= 30:
+#     print('estimasi panen 24 hari') 
+# elif 30 < estimasi <= 40:
+#     print('estimasi panen 21 hari')
+# elif 40 < estimasi <= 50:
+#     print('estimasi panen 18 hari') 
+# elif 50 < estimasi <= 60:
+#     print('estimasi panen 15 hari') 
+# elif 60 < estimasi <= 70:
+#     print('estimasi panen 12 hari') 
+# elif 70 < estimasi <= 80:
+#     print('estimasi panen 9 hari') 
+# elif 80 < estimasi <= 90:
+#     print('estimasi panen 6 hari') 
+# elif 90 < estimasi <= 100:
+#     print('estimasi panen 3 hari')
+# elif estimasi == 100:
+#     print('Selada siap panen!')
+
 
 # cv2.destroyAllWindows()

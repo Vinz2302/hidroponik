@@ -104,11 +104,11 @@ def arduino_control():
             areai=areai+1           #file seladacv.py 
                 
     for area in save:
-        if BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size <5000:      #untuk menentukan kategori ukuran selada, ukuran minimum bisa disesuaikan
+        if BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size <22000:      #untuk menentukan kategori ukuran selada, ukuran minimum bisa disesuaikan
             small.append(area)
-        elif BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size <8000:
+        elif BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size <43500:
             med.append(area)
-        elif BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size >8000:
+        elif BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size >70000:
             big.append(area)
                 
     for k in big:
@@ -163,6 +163,35 @@ def arduino_control():
     print(save)
     print(record)
     outcode.sort()             #outcode di sort supaya lengan robot mengambil sesuai urutan yang di mau
+
+    processed_list = [(index, (value / 325) * 100) for index, value in record['pameran'].items()]
+
+    print(processed_list)
+
+    for index, percentage in processed_list:
+        estimasi = int(percentage)
+        if 0 < estimasi <= 10:
+            print(f'Selada {index}, estimasi panen 30 hari') 
+        elif 10 < estimasi <= 20:
+            print(f'Selada {index}, estimasi panen 27 hari') 
+        elif 20 < estimasi <= 30:
+            print(f'Selada {index}, estimasi panen 24 hari') 
+        elif 30 < estimasi <= 40:
+            print(f'Selada {index}, estimasi panen 21 hari')
+        elif 40 < estimasi <= 50:
+            print(f'Selada {index}, estimasi panen 18 hari') 
+        elif 50 < estimasi <= 60:
+            print(f'Selada {index}, estimasi panen 15 hari') 
+        elif 60 < estimasi <= 70:
+            print(f'Selada {index}, estimasi panen 12 hari') 
+        elif 70 < estimasi <= 80:
+            print(f'Selada {index}, estimasi panen 9 hari') 
+        elif 80 < estimasi <= 90:
+            print(f'Selada {index}, estimasi panen 6 hari') 
+        elif 90 < estimasi <= 100:
+            print(f'Selada {index}, estimasi panen 3 hari')
+        elif estimasi == 100:
+            print(f'Selada {index}, Selada siap panen!')
 
     for ambil in outcode:
         if ambil==1:
