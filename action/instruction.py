@@ -1,6 +1,6 @@
 #SUDAH JADI AMBIL UKURAN BESARNYA SAJA, eksperimen HSV, tidak per tile
 from .motor import *
-from .servo import *
+# from .servo import *
 
 
 def arduino_control():
@@ -81,21 +81,21 @@ def arduino_control():
             for j in range(len(hierarchy[0])):   #hasil dari hierarchy ini bisa beda-beda tergantung dari jenis RETR yang digunakan
                 if hierarchy[0,j,3]==0:
                     x, y, w, h = cv2.boundingRect(contours[j])   #untuk buat kotak di sekitar selada untuk nantinya bisa diubah warnanya
-                    if individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size>5000: #5000 merupakan batas pixel noise, dibawah itu akan diabaikan, nilai bisa disesuaikan
+                    if individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size>1000: #5000 merupakan batas pixel noise, dibawah itu akan diabaikan, nilai bisa disesuaikan
             #             cv2.rectangle(imcop, (x,y),(x+w,y+h), (0, 0, 255), 1)
                         cv2.fillPoly(individual, pts =[contours[j]], color=(0))   #untuk mengisi lubang-lubang yang kosong pada selada
 
                         if area in save:        #jika pada bidang 1 sudah ada kontur yang terdeteksi dan terdeteksi ada kontur lain, maka akan dibandingkan
-                            if individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.00276>save[area]['size']:    #kontur yang paling besar yang akan disimpan
+                            if individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.0046>save[area]['size']:    #kontur yang paling besar yang akan disimpan
                                 save[area]={}
-                                save[area]['size']=individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.00276   #*0.00276 adalah koefisien pengali
+                                save[area]['size']=individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.0046   #*0.00276 adalah koefisien pengali
                                 save[area]['x']=x+x0-1                                                                  #didapatkan dari kalibrasi 
                                 save[area]['y']=y+y0-1
                                 save[area]['w']=w
                                 save[area]['h']=h
                         else:
                             save[area]={}
-                            save[area]['size']=individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.00276       #jika belum ada kontur terdeteksi 
+                            save[area]['size']=individual[y:y+h, x:x+w][individual[y:y+h, x:x+w]==0].size*0.0046       #jika belum ada kontur terdeteksi 
                             save[area]['x']=x+x0-1                                                                      #maka akan langsung disimpan
                             save[area]['y']=y+y0-1
                             save[area]['w']=w
@@ -104,11 +104,11 @@ def arduino_control():
             areai=areai+1           #file seladacv.py 
                 
     for area in save:
-        if BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size <22000:      #untuk menentukan kategori ukuran selada, ukuran minimum bisa disesuaikan
+        if BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size <2000: #22000      #untuk menentukan kategori ukuran selada, ukuran minimum bisa disesuaikan
             small.append(area)
-        elif BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size <43500:
+        elif BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size <4350: #43500
             med.append(area)
-        elif BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size >70000:
+        elif BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']][BnW_image[save[area]['y']:save[area]['y']+save[area]['h'], save[area]['x']:save[area]['x']+save[area]['w']]==0].size >5000: #70000
             big.append(area)
                 
     for k in big:
@@ -166,8 +166,6 @@ def arduino_control():
 
     processed_list = [(index, (value / 325) * 100) for index, value in record['pameran'].items()]
 
-    print(processed_list)
-
     for index, percentage in processed_list:
         estimasi = int(percentage)
         if 0 < estimasi <= 10:
@@ -193,37 +191,109 @@ def arduino_control():
         elif estimasi == 100:
             print(f'Selada {index}, Selada siap panen!')
 
-    for ambil in outcode:
-        if ambil==1:
-            home()     
+    if outcode[0] == 1:
+        print("testing 1")
+        satu()
+        # buka()
+        # tutup()
+        naik()
+        home()
+        # buka()
+        take(outcode[1:])
+    if outcode[0] == 2:
+        print("testing 2")
+        satu()
+        # buka()
+        # tutup()
+        naik()
+        home()
+        # buka()
+        take(outcode[1:])
+    if outcode[0] == 3:
+        print("testing 3")
+        satu()
+        # buka()
+        # tutup()
+        naik()
+        home()
+        # buka()
+        take(outcode[1:])
+    if outcode[0] == 4:
+        print("testing 4")
+        satu()
+        # buka()
+        # tutup()
+        naik()
+        home()
+        # buka()
+        take(outcode[1:])
+
+    # for ambil in outcode:
+    #     if ambil==1:
+    #         print("testing 1")
+    #         satu()
+    #         # buka()
+    #         # tutup()
+    #         naik()
+    #         home()
+    #         # buka()
+    #         take(outcode[1:])
+    #     if ambil==2:
+    #         print("testing 2")
+    #         dua()
+    #         # buka()
+    #         # tutup()
+    #         naik()
+    #         home()
+    #         # buka()
+    #         take(outcode[1:])
+    #     if ambil==3:
+    #         print("testing 3")
+    #         tiga()
+    #         # buka()
+    #         # tutup()
+    #         naik()
+    #         home()
+    #         # buka()
+    #         take(outcode[1:])
+    #     if ambil==4:
+    #         print("testing 4")
+    #         empat()
+    #         # buka()
+    #         # tutup()
+    #         naik()
+    #         home()
+    #         # buka()
+    #         take(outcode[1:])
+    # home()
+
+def take(param):
+    for var in param:
+        if var==1: 
             pos1()
-            buka()
-            tutup()
+            # buka()
+            # tutup()
             naik()
             home()
-            buka()
-        elif ambil==2:
-            home()
+            # buka()
+        elif var==2:
             pos2()
-            buka()
-            tutup()
+            # buka()
+            # tutup()
             naik()
             home()
-            buka()
-        elif ambil==3:
-            home()
+            # buka()
+        elif var==3:
             pos3()
-            buka()
-            tutup()
+            # buka()
+            # tutup()
             naik()
             home()
-            buka()
-        elif ambil==4:
-            home()
+            # buka()
+        elif var==4:
             pos4()
-            buka()
-            tutup()
+            # buka()
+            # tutup()
             naik()
             home()
-            buka()   
-    home()
+            # buka()
