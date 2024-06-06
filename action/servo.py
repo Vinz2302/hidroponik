@@ -14,3 +14,6 @@ def tutup():
     arduino.write(str.encode('0'))
     time.sleep(2)
     print("tutup")
+
+# buka()
+# tutup()

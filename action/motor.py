@@ -47,14 +47,14 @@ def satu():
     arduino.write(str.encode('$X' + '\n'))
     time.sleep(2)
 
-    arduino.write(str.encode('$J=G21G91X45.000Y-7.000F100000' + '\n'))
+    arduino.write(str.encode('$J=G21G91X48.000Y-7.000F100000' + '\n'))
     print('ngambil posisi 1')          
     time.sleep(8)    
 
     arduino.write(str.encode('$J=G21G91Z40.000F100000' + '\n'))
     time.sleep(5)
 
-    arduino.write(str.encode('$J=G21G91X-7.500F100000' + '\n'))
+    arduino.write(str.encode('$J=G21G91X-10.500F100000' + '\n'))
     time.sleep(5)
 
 def tiga():
@@ -146,14 +146,14 @@ def pos4():
     print('jalan ke lubang 4')
     time.sleep(8)
 
-    arduino.write(str.encode('$J=G21G91X-32.500Y-12.500F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-25.000Y-15.500F100000'  + '\n'))
     time.sleep(5)
 
     arduino.write(str.encode('$J=G21G91Z20.000F100000'  + '\n'))
     time.sleep(5)    
 
-    arduino.write(str.encode('$J=G21G91X-5.000F100000'  + '\n'))
-    time.sleep(8)
+    arduino.write(str.encode('$J=G21G91X-11.000F100000'  + '\n'))
+    time.sleep(5)
 
 def pos1():
     arduino.write(str.encode('$X' + '\n'))

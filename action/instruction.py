@@ -1,6 +1,6 @@
 #SUDAH JADI AMBIL UKURAN BESARNYA SAJA, eksperimen HSV, tidak per tile
 from .motor import *
-# from .servo import *
+from .servo import *
 
 
 def arduino_control():
@@ -193,39 +193,39 @@ def arduino_control():
 
     if outcode[0] == 1:
         print("testing 1")
+        buka()
         satu()
-        # buka()
-        # tutup()
+        tutup()
         naik()
         home()
-        # buka()
+        buka()
         take(outcode[1:])
     if outcode[0] == 2:
         print("testing 2")
-        satu()
-        # buka()
-        # tutup()
+        buka()
+        dua()
+        tutup()
         naik()
         home()
-        # buka()
+        buka()
         take(outcode[1:])
     if outcode[0] == 3:
         print("testing 3")
-        satu()
-        # buka()
-        # tutup()
+        buka()
+        tiga()
+        tutup()
         naik()
         home()
-        # buka()
+        buka()
         take(outcode[1:])
     if outcode[0] == 4:
         print("testing 4")
-        satu()
-        # buka()
-        # tutup()
+        buka()
+        empat()
+        tutup()
         naik()
         home()
-        # buka()
+        buka()
         take(outcode[1:])
 
     # for ambil in outcode:
@@ -271,29 +271,29 @@ def take(param):
     for var in param:
         if var==1: 
             pos1()
-            # buka()
-            # tutup()
+            buka()
+            tutup()
             naik()
             home()
-            # buka()
+            buka()
         elif var==2:
             pos2()
-            # buka()
-            # tutup()
+            buka()
+            tutup()
             naik()
             home()
-            # buka()
+            buka()
         elif var==3:
             pos3()
-            # buka()
-            # tutup()
+            buka()
+            tutup()
             naik()
             home()
             # buka()
         elif var==4:
             pos4()
-            # buka()
-            # tutup()
+            buka()
+            tutup()
             naik()
             home()
-            # buka()
+            buka()
