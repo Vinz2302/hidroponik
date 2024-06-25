@@ -15,11 +15,11 @@ def get_image_post():
 
 @image_routes.route('/image', methods=['GET'])
 def get_image():
-    file_path = request.args.get('file_path')
+    file_path = request.args.get('file_path') # set the destination 
     if not file_path:
         return jsonify({'error': 'File path not provided in query param'}), 400
     
-    upload_image('image/pameran.jpg', 'test1/pameran.jpg')
+    upload_image('image/pameran.jpg', file_path) # path, destination
     
     download_url = generate_download_url(file_path)
     return jsonify({'download_url': download_url})

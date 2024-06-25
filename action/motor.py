@@ -146,13 +146,13 @@ def pos4():
     print('jalan ke lubang 4')
     time.sleep(8)
 
-    arduino.write(str.encode('$J=G21G91X-25.000Y-15.500F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-25.000Y-14.500F100000'  + '\n'))
     time.sleep(5)
 
     arduino.write(str.encode('$J=G21G91Z20.000F100000'  + '\n'))
     time.sleep(5)    
 
-    arduino.write(str.encode('$J=G21G91X-11.000F100000'  + '\n'))
+    arduino.write(str.encode('$J=G21G91X-9.000F100000'  + '\n'))
     time.sleep(5)
 
 def pos1():
